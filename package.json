@@ -1,24 +1,29 @@
 {
   "name": "@nobleai/rescript-documentation",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "description": "NobleAI tool for generating rescript library documentation",
   "main": "src/Doc.bs.js",
+  "bin": "./bin/doc.js",
   "repository": "https://github.com/noble-ai/rescript-prelude",
   "author": "Alex Mouton (alex.mouton@noble.ai)",
   "license": "MIT",
   "private": false,
   "type": "module",
   "scripts": {
-    "build": "rescript build",
+    "build": "rescript build; rollup -c rollup.config.js",
     "start": "rescript build -w",
     "clean": "rescript clean",
     "test": "vitest",
-    "pub": "yarn publish --scope nobleai --access public"
+    "pub": "yarn publish --scope nobleai --access public",
+    "noble-doc": "node ./bin/doc.js"
   },
   "dependencies": {
     "@nobleai/rescript-prelude": "^0.6.0",
     "lodash": "4.17.21",
     "rescript": "^10.1",
     "rescript-nodejs": "^16.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^4.12.0"
   }
 }

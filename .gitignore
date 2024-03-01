@@ -1,4 +1,4 @@
 node_modules
-lib
 src/**.bs.js
 yarn-error.log
+lib
