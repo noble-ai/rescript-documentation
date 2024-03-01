@@ -1,12 +1,12 @@
 {
   "name": "@nobleai/rescript-documentation",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "NobleAI tool for generating rescript library documentation",
   "main": "src/Doc.bs.js",
   "repository": "https://github.com/noble-ai/rescript-prelude",
   "author": "Alex Mouton (alex.mouton@noble.ai)",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "type": "module",
   "scripts": {
     "build": "rescript build",
