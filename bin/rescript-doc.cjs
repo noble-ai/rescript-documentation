@@ -893,6 +893,14 @@ function _2(o, a0, a1) {
 }
 
 // node_modules/rescript/lib/es6/belt_Option.js
+function mapU(opt, f) {
+  if (opt !== void 0) {
+    return some(f(valFromOption(opt)));
+  }
+}
+function map2(opt, f) {
+  return mapU(opt, __1(f));
+}
 function flatMapU(opt, f) {
   if (opt !== void 0) {
     return f(valFromOption(opt));
@@ -909,6 +917,7 @@ function predicate(v, b) {
     return some(v);
   }
 }
+var map3 = map2;
 
 // node_modules/@nobleai/rescript-prelude/src/Float.js
 var import_numeral = __toESM(require_numeral());
@@ -999,7 +1008,7 @@ function resolve(a, ok, err) {
     return _1(err, a._0);
   }
 }
-function map3(result, fn) {
+function map4(result, fn) {
   if (result.TAG === /* Ok */
   0) {
     return {
@@ -1336,15 +1345,19 @@ function h2(s) {
 function h3(s) {
   return "### " + s + "\n";
 }
+var eol = "  \n";
+var eop = "\n\n";
 function list(items) {
   return items.map(function(x) {
     return "- " + x;
-  }).join("\n");
+  }).join(eop);
 }
 var Md = {
   h1,
   h2,
   h3,
+  eol,
+  eop,
   list
 };
 function parse(str) {
@@ -1403,7 +1416,7 @@ function parse$1(json, str) {
     var filepath = decodeField(obj, "filepath", Result$1.decodeString);
     var line = decodeField(obj, "line", Result$1.decodeInt);
     var col = decodeField(obj, "col", Result$1.decodeInt);
-    return map3(all3(filepath, line, col), function(param) {
+    return map4(all3(filepath, line, col), function(param) {
       return {
         filepath: param[0],
         line: param[1],
@@ -1426,7 +1439,12 @@ function parse$2(json) {
     var docstrings = decodeField(obj, "docstrings", decodeDocstrings);
     var source = decodeField(obj, "source", parse$1);
     var deprecated = decodeField(obj, "deprecated", Result$1.decodeString);
-    return map3(all5(id, kind, name, docstrings, source), function(param) {
+    var items = bind2(bind2(fromOption(get2(obj, "items"), "items"), function(__x) {
+      return Result$1.decodeArray(__x, "items");
+    }), function(x) {
+      return all(x.map(parse$2));
+    });
+    return map4(all5(id, kind, name, docstrings, source), function(param) {
       return {
         id: param[0],
         kind: param[1],
@@ -1434,18 +1452,22 @@ function parse$2(json) {
         signature,
         docstrings: param[3],
         source: param[4],
-        deprecated: toOption(deprecated)
+        deprecated: toOption(deprecated),
+        items: toOption(items)
       };
     });
   });
 }
 function print(item) {
   return catOptions([
-    h3(item.name),
+    h3(item.id),
     item.signature,
     item.deprecated,
-    item.docstrings.join("\n")
-  ]).join("\n");
+    item.docstrings.join(eol),
+    map3(item.items, function(x) {
+      return x.map(print).join(eop);
+    })
+  ]).join(eol);
 }
 var Item = {
   parse: parse$2,
@@ -1461,7 +1483,7 @@ function parse$3(json) {
     }), function(x) {
       return all(x.map(parse$2));
     });
-    return map3(all4(name, docstrings, source, items), function(param) {
+    return map4(all4(name, docstrings, source, items), function(param) {
       return {
         name: param[0],
         docstrings: param[1],
@@ -1474,9 +1496,9 @@ function parse$3(json) {
 function print$1(doc) {
   return [
     h1(doc.name),
-    doc.docstrings.join("\n"),
-    doc.items.map(print).join("\n")
-  ].join("\n");
+    doc.docstrings.join(eol),
+    doc.items.map(print).join(eop)
+  ].join(eop);
 }
 var Doc = {
   parse: parse$3,
