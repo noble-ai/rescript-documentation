@@ -1,6 +1,6 @@
 {
   "name": "@nobleai/rescript-documentation",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "NobleAI tool for generating rescript library documentation",
   "repository": "https://github.com/noble-ai/rescript-prelude",
   "author": "Alex Mouton (alex.mouton@noble.ai)",
@@ -8,15 +8,14 @@
   "private": false,
   "type": "module",
   "bin": {
-    "noble-doc": "./bin/noble-doc.cjs"
+    "rescript-doc": "./bin/rescript-doc.cjs"
   },
   "scripts": {
-    "build": "rescript build -with-deps; esbuild --bundle src/Doc.bs.js --outfile=./bin/noble-doc.cjs --platform=node --log-level=debug --banner:js=\"#!/usr/bin/env node\"",
+    "build": "rescript build -with-deps; esbuild --bundle src/Doc.bs.js --outfile=./bin/rescript-doc.cjs --platform=node --log-level=debug --banner:js=\"#!/usr/bin/env node\"",
     "start": "rescript build -w",
     "clean": "rescript clean",
     "test": "vitest",
-    "pub": "yarn publish --scope nobleai --access public",
-    "noble-doc": "node ./bin/doc.js"
+    "pub": "yarn publish --scope nobleai --access public"
   },
   "dependencies": {
     "@nobleai/rescript-prelude": "^0.7.0",
