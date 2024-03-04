@@ -6,7 +6,7 @@ Use this to generate documentation in github with their jekyl docs tooling, if y
   `yarn add -D @nobleai/rescript-documentation`
 
 ## Simple Use
-  `yarn run noble-doc <input-file>`
+  `yarn run rescript-doc <input-file>`
 
 ## Makefile
 Here's an example of how you might use this in a Makefile:
@@ -23,7 +23,7 @@ Here's an example of how you might use this in a Makefile:
 	all: outdir $(MD_FILES)
 
 	docs/generated/%.md: src/%.res
-		yarn run rescript-tools doc $< | yarn noble-doc > $@
+		yarn run rescript-tools doc $< | yarn rescript-doc > $@
 
 	clean: 
 		rm -rf ./docs/generated
