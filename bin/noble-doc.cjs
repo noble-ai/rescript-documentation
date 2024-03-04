@@ -1483,7 +1483,6 @@ var Doc = {
   print: print$1
 };
 Process.argv.slice(2).forEach(function(file) {
-  console.log("file", file);
   console.log(resolve(parse$3(parseExn(Fs.readFileSync(file, "utf8"))), print$1, function(x) {
     return x;
   }));

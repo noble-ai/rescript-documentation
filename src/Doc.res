@@ -123,7 +123,6 @@ module Doc = {
 Node.Process.argv
 ->Array.sliceFrom(2)
 ->Array.forEach(file => {
-  Js.Console.log2("file", file)
   Node.Fs.readFileSync(file, #utf8)
   ->parseExn
   ->Doc.parse
