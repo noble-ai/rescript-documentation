@@ -1345,6 +1345,9 @@ function h2(s) {
 function h3(s) {
   return "### " + s + "\n";
 }
+function code(s) {
+  return "`" + s + "`";
+}
 var eol = "  \n";
 var eop = "\n\n";
 function list(items) {
@@ -1356,6 +1359,7 @@ var Md = {
   h1,
   h2,
   h3,
+  code,
   eol,
   eop,
   list
@@ -1461,7 +1465,7 @@ function parse$2(json) {
 function print(item) {
   return catOptions([
     h3(item.id),
-    item.signature,
+    map3(item.signature, code),
     item.deprecated,
     item.docstrings.join(eol),
     map3(item.items, function(x) {
