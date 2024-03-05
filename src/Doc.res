@@ -5,6 +5,7 @@ module Md = {
   let h1 = s => "# " ++ s ++ "\n"
   let h2 = s => "## " ++ s ++ "\n"
   let h3 = s => "### " ++ s ++ "\n"
+  let warning = s => `[!WARNING] ${s} [!WARNING]`
   let code = s => `\`${s}\``
   let eol = "  \n"
   let eop = "\n\n"
@@ -109,7 +110,7 @@ module Item = {
       Some(Md.h3(item.id)),
       // Some(item.name),
       item.signature->Option.map(Md.code),
-      item.deprecated,
+      item.deprecated->Option.map(Md.warning),
       Some(item.docstrings->Array.joinWith(Md.eol)),
       item.items->Option.map(x => x->Array.map(print)->Array.joinWith(Md.eop)),
     ]

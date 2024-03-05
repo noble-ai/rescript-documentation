@@ -1345,6 +1345,9 @@ function h2(s) {
 function h3(s) {
   return "### " + s + "\n";
 }
+function warning(s) {
+  return "[!WARNING] " + s + " [!WARNING]";
+}
 function code(s) {
   return "`" + s + "`";
 }
@@ -1359,6 +1362,7 @@ var Md = {
   h1,
   h2,
   h3,
+  warning,
   code,
   eol,
   eop,
@@ -1466,7 +1470,7 @@ function print(item) {
   return catOptions([
     h3(item.id),
     map3(item.signature, code),
-    item.deprecated,
+    map3(item.deprecated, warning),
     item.docstrings.join(eol),
     map3(item.items, function(x) {
       return x.map(print).join(eop);
