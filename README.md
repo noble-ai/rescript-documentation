@@ -12,19 +12,22 @@ Use this to generate documentation in github with their jekyl docs tooling, if y
 Here's an example of how you might use this in a Makefile:
 
 ```makefile
-	RES_FILES = $(wildcard src/*.res) $(wildcard src/**/*.res)
-	MD_FILES := $(patsubst src/%,docs/generated/%,$(RES_FILES:.res=.md))
+RES_FILES = $(wildcard src/*.res) $(wildcard src/**/*.res)
+MD_FILES := $(patsubst src/%,docs/generated/%,$(RES_FILES:.res=.md))
 
-	.PHONY: outdir all clean
+.PHONY: outdir all clean
 
-	outdir: 
-		mkdir -p docs/generated
+outdir: 
+	mkdir -p docs/generated
 
-	all: outdir $(MD_FILES)
+all: outdir $(MD_FILES) docs/index.md
 
-	docs/generated/%.md: src/%.res
-		yarn run rescript-tools doc $< | yarn rescript-doc > $@
+docs/generated/%.md: src/%.res
+	yarn -s run rescript-tools doc $< > temp.json; yarn -s run rescript-doc temp.json > $@; rm temp.json
 
-	clean: 
-		rm -rf ./docs/generated
+docs/index.md: outdir $(MD_FILES)
+	cat $(MD_FILES) > $@
+
+clean: 
+	rm -rf ./docs/generated
 ```
