@@ -937,6 +937,9 @@ function fromFloat(f) {
 }
 
 // node_modules/@nobleai/rescript-prelude/src/Array.bs.js
+function $$return(a) {
+  return [a];
+}
 function keepMap(arr, fn) {
   var v = [];
   arr.forEach(function(x) {
@@ -954,6 +957,7 @@ function catOptions(__x) {
   });
 }
 var concat = (a, b) => [...a, ...b];
+var append = (arr, a) => [...arr, a];
 
 // node_modules/rescript/lib/es6/belt_Result.js
 function flatMapU2(opt, f) {
@@ -1345,8 +1349,19 @@ function h2(s) {
 function h3(s) {
   return "### " + s + "\n";
 }
-function warning(s) {
-  return "[!WARNING] " + s + " [!WARNING]";
+function block(block$1, lines) {
+  return append(lines.map(function(line) {
+    return "> " + line;
+  }), "{: .block-" + block$1 + " }").join("\n");
+}
+function tip(param) {
+  return block("tip", param);
+}
+function warning(param) {
+  return block("warning", param);
+}
+function danger(param) {
+  return block("danger", param);
 }
 function code(s) {
   return "`" + s + "`";
@@ -1362,7 +1377,10 @@ var Md = {
   h1,
   h2,
   h3,
+  block,
+  tip,
   warning,
+  danger,
   code,
   eol,
   eop,
@@ -1470,7 +1488,9 @@ function print(item) {
   return catOptions([
     h3(item.id),
     map3(item.signature, code),
-    map3(item.deprecated, warning),
+    map3(item.deprecated, function(x) {
+      return block("warning", $$return(x));
+    }),
     item.docstrings.join(eol),
     map3(item.items, function(x) {
       return x.map(print).join(eop);
