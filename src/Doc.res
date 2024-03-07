@@ -39,10 +39,12 @@ module Kind = {
 let decodeField = (obj, field, decode) =>
   obj->Dict.get(field)->Result.fromOption(field)->Result.bind(decode(_, `${field} value`))
 
+let decodeDocstring = x => x->Json.decodeString("docstring")->Result.map(String.split(_, "\\n"))
+
 let decodeDocstrings = (json, str) =>
   json
   ->Json.decodeArray(`${str} array`)
-  ->Result.bind(x => x->Array.map(Json.decodeString(_, "docstring"))->Result.all)
+  ->Result.bind(x => x->Array.map(decodeDocstring)->Result.all->Result.map(Array.join))
 
 module Source = {
   type t = {
