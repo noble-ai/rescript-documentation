@@ -5,7 +5,6 @@ module Md = {
   let h1 = s => "# " ++ s ++ "\n"
   let h2 = s => "## " ++ s ++ "\n"
   let h3 = s => "### " ++ s ++ "\n"
-  let warning = s => `[!WARNING] ${s} [!WARNING]`
 
   let block = (block, lines) => {
     lines
@@ -31,7 +30,7 @@ module Kind = {
     | "value" => Result.Ok(#value)
     | "type" => Result.Ok(#"type")
     | "module" => Result.Ok(#"module")
-    | _ => Result.Error("invalid kind")
+    | x => Result.Error(`unhandled kind ${x}`)
     }
   }
 }

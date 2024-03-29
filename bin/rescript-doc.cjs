@@ -6910,7 +6910,7 @@ function parse(str) {
           /* Error */
           1
         ),
-        _0: "invalid kind"
+        _0: "unhandled kind " + str
       };
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@nobleai/rescript-documentation",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "NobleAI tool for generating rescript library documentation",
   "repository": "https://github.com/noble-ai/rescript-prelude",
   "author": "Alex Mouton (alex.mouton@noble.ai)",
